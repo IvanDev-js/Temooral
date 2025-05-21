@@ -16,7 +16,15 @@ Muestra como un scriptcon directivas de configuración y código en php direccio
 <a id='intro'></a>
 ### Introdución.
 
-Una petición **URL** (del inglés Uniform Resource Locators) es una cadena de caracteres alfanuméricos estructurada en campos estándar separados por marcadores, tiene el propósito de: navegar, identificar, localizar, recuperar y entregar los recursos electrónicos contenidos en un servidor web, mediante una petición por parte del cliente, misma que es atendida por el servidor web Apache, a través de la ejecución de archivos ocultos de **acceso de hipertexto** situados tanto en la raíz de la aplicación, como en las carpetas **public** y **app** de la  aplicación web. 
+### Introdución.
+
+"""ejemploFAdo_basico.py   Evalua una string con un automata finito deterministico
+Descripción.
+            -Muestra como evaluar una cadena de caracteres hasta evaluar posible estado de aceptación
+            -
+            https://ed.sjuanrio.tecnm.mx/pluginfile.php/118066/mod_folder/content/0/matemticas-discretas-6edi-johnsonbaugh.pdf
+            
+"""
  
 <img style="float: right" 
 src="public\img\arbolCarpetas_3niveles.jpg" 
