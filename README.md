@@ -19,13 +19,8 @@ Este contenido mostrara diversos codigos realizados en el lenguaje python, princ
 
 En este documento llevaremos a cabo el desarrollo de un codigo en python de automatas finitos utilizando FADO, el cual nos ayudara a crear transiciones para poder identificar una direccion IP la cual ingresaremos por consola y nos dira si la IP que ingresamos es verdadera o falsa, de acuerdo a las declaraciones hechas en las transiciones.
  
-<img style="float: right" 
-src="public\img\arbolCarpetas_3niveles.jpg" 
-height="580px" width="450px"
-alt="carpetas de la aplicación"/>
-
 <a id='wrangling'></a>
-### Tutorial para FAdo.
+### Tutorial para FAdo
 
 El sistema FAdo es un conjunto de herramientas para la manipulación de lenguajes regulares.
 
@@ -33,9 +28,11 @@ Los lenguajes regulares pueden representarse mediante expresiones regulares (reg
 
 Para trabajar con FAdo, después de la instalación, importe los siguientes módulos en un intérprete de Python:
 
-[2]:    >>> from FAdo.fa import *
-        >>> from FAdo.reex import *
-        >>> from FAdo.fio import *
+```
+1  from FAdo.fa import *
+2  from FAdo.reex import *
+3  from FAdo.fio import *
+```
 
 El módulo fa implementa las clases para autómatas finitos y el módulo reex, las clases para expresiones regulares. El módulo fio implementa métodos para la entrada/salida de autómatas y modelos relacionados.
 
@@ -54,7 +51,7 @@ En general, no se deben crear instancias (objetos) de la clase OFA. Las clases D
 
 Para cada clase hay métodos especiales para agregar/eliminar/modificar símbolos del alfabeto, estados y transiciones.
 
-###DFAs
+### DFAs
 
 El siguiente ejemplo muestra como crear un DFA que acepte las palabras de {0,1}* que sean multiplos de 3.
 
@@ -71,16 +68,16 @@ El siguiente ejemplo muestra como crear un DFA que acepte las palabras de {0,1}*
  10  m3.addTransition(1, '0', 2) 
  11  m3.addTransition(1, '1', 0) 
  12  m3.addTransition(2, '0', 1) 
- 13  m3.addTransition(2, '1', 2) 
- 14      
+ 13  m3.addTransition(2, '1', 2)    
 ```
 Ahora es posible, por ejemplo, ver la estructura del autómata o probar si éste acepta una palabra.
 
-m3.evalWordP("011") -> Verdadero 
-m3.evalWordP("1011") -> Falso
+```
+1  m3.evalWordP("011") -> Verdadero 
+2  m3.evalWordP("1011") -> Falso
+```
 
-
-<h4>Ejemplo de Aplicacion de FAdo.</h4>
+<h4>Ejemplo de DFA</h4>
 
 <a href="#contents">Ir a Contenido.</a>
 
@@ -94,13 +91,10 @@ Vamos a realizar un ejercicio donde utilizaremos el ejemplo de FAdo pero esta ve
 ```
 1 def procesar_ip():
 2    ipData = input("Teclea la Dirección IP: ")
-
 3    ipEsperada = "192168155125"
-4    es_valida = m3.evalWordP(ipData)  # Evalúa  la IP ingresada
-
+4    es_valida = m3.evalWordP(ipData)  # Evalúa la IP ingresada
 5    print(f"\nIP ingresada: {ipData}")
 6    print(f"IP esperada: {ipEsperada}")
-
 7    if ipData == ipEsperada:
 8        print("Comparación con IP esperada: VERDADERA")
 9    else:
@@ -113,10 +107,11 @@ Vamos a realizar un ejercicio donde utilizaremos el ejemplo de FAdo pero esta ve
 ### Conclusiones.
 
 Se llevo a cabo la realizacion del codigo utilizando FADO, el cual nos muestra y evalua la direccion IP que le ingresemos por consola, esta direccion IP nos dira si es verdadera o falsa dependiendo de la evaluacion que le indiquemos en el codigo de las transciones.
+
 <a href="#contents">Ir a Contenido.</a>
 
 <a id='reference'></a>
-### Referencias.
+### Referencias
 
 [1] “A small tutorial for FAdo — FAdo 2.1.2 documentation,” Fc.up.pt, 2023. 
 https://www.dcc.fc.up.pt/~rvr/FAdoDoc/notebooks/FAdoTutorial.html (accedio May 22, 2025).
