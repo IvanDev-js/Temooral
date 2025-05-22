@@ -1,122 +1,124 @@
-# Ejemplo MVC
+# Lenguajes y Automatas I
 
 ##  
-Muestra como un scriptcon directivas de configuración y código en php direcciona el flujo de ejecución de una petición URL hasta presentar un contenido en una página principal.
+Este contenido mostrara diversos codigos realizados en el lenguaje python, principalmente uno que se realizo con automatas finitos denominado FADO, de la materia de Lenguajes y Automatas I
 
 <a id='contents'></a>
 ## Contenido.
 <ul>
 <li><a href="#intro">Introdución.</a></li>
-<li><a href="#wrangling">Controlador principal.</a></li>
-<li><a href="#eda">Exploratory Data Analysis</a></li>
+<li><a href="#wrangling">Tutorial para FAdo.</a></li>
+<li><a href="#eda">Ejemplo de Aplicacion de FAdo</a></li>
 <li><a href="#conclusions">Conclusions</a></li>
 <li><a href="#reference">Referencias</a></li>
 </ul>
   
 <a id='intro'></a>
-### Introdución.
 
 ### Introdución.
 
-"""ejemploFAdo_basico.py   Evalua una string con un automata finito deterministico
-Descripción.
-            -Muestra como evaluar una cadena de caracteres hasta evaluar posible estado de aceptación
-            -
-            https://ed.sjuanrio.tecnm.mx/pluginfile.php/118066/mod_folder/content/0/matemticas-discretas-6edi-johnsonbaugh.pdf
-            
-"""
+En este documento llevaremos a cabo el desarrollo de un codigo en python de automatas finitos utilizando FADO, el cual nos ayudara a crear transiciones para poder identificar una direccion IP la cual ingresaremos por consola y nos dira si la IP que ingresamos es verdadera o falsa, de acuerdo a las declaraciones hechas en las transiciones.
  
 <img style="float: right" 
 src="public\img\arbolCarpetas_3niveles.jpg" 
 height="580px" width="450px"
 alt="carpetas de la aplicación"/>
 
-El diagrama de carpetas y archivos de la aplicación **DASH_BOARD** mostrada a la derecha, presenta tres niveles de ejecución de la aplicación web, el primer nivel **raíz de la aplicación** <font color="red">-recuadro color rojo-</font> tiene la ejecución de una de dos responsabilidades, o <u>direccionar</u> "cualquier cadena de uno o más caracteres, desde el principio hasta el final de la URL" <i>línea número 3</i>, o <u>direccionar y registrar</u> "toda la URL solicitada (sin incluir el dominio)" <i>línea número 4</i>, hacia la carpeta de archivos **/public**.
-
-<h4>Directivas de configuración raíz.</h4>
-<img style="float: left" 
-src="public\img\htaccesRaiz.PNG" 
-height="350px" width="450px"
-alt="htaccessRaiz"/>
-</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
-
-<h4>Directivas de configuración public.</h4>
-<img style="float: left" 
-src="public\img\htaccesPublic.PNG" 
-height="250px" width="350px"
-alt="htaccessPublic"/>
-
-El segundo nivel de ejecución <font color="green">-recuadro color verde-</font> diagrama de carpetas a la izquierda, direcciona el flujo de ejecución <i>línea número 4</i> con el path relativo a la carpeta contenedora del proyecto hacia el archivo destino **/public/index.php** y captura toda la URL solicitada en la variable **url** <i>línea número 7</i>. 
-
-El diagrama de carpetas y archivos de la aplicación DASH_BOARD muestra tanto las carpetas contenedoras **/css,/img,...,/js** con los recursos públicos disponibles para soporte de la aplicación.  Como él archivo destino **index.php** que tiene la responsabilidad de direccionar y cargar en memoria de trabajo el <u>controlador principal</u> y generar una instancia de la clase **ControladorPrincipal()**, contenidas en el archivo **inicio.php** ubicada en el tercer nivel de ejecución.    
-
 <a id='wrangling'></a>
-### Controlador principal.
+### Tutorial para FAdo.
 
-Un **patrón de diseño** en ingeniería de software es un **modelo** que facilita una solución general durante el desarrollo de software. Los patrones de diseño (_PD_) son estructuras que la o él desarrollador adapta o adecúa a diferentes situaciones en desarrollo de software, un _PD_ promueve que el código sea módular, reutilizable, mantenible, documentable y mantenga una lógica de organización modular con menos errores. Así el término **modelo** es una representación abstracta de un sistema, un modelo es útil para entender, diseñar y analizar la ejecución de estructuras de software. 
+El sistema FAdo es un conjunto de herramientas para la manipulación de lenguajes regulares.
 
-El modelo (del inglés Front Controller, _controlador principal_) puede ser una solución de aplicación web orientada a capas. El _controlador principal_ proporciona **un punto de entrada** para gestionar todas solicitudes de información del cliente (_query_) en una aplicación web. A menudo este patrón de diseño con sus **componetes** recibe, desglosa y codifica (_serialización_), comprueba seguridad, maneja erores, mapea y delega solicitudes, direcciona a los demás comonentes de la aplicación (Alvarez et al, 2022).
+Los lenguajes regulares pueden representarse mediante expresiones regulares (regexp) o autómatas finitos, entre otros formalismos. Los autómatas finitos pueden ser deterministas (DFA) o no deterministas (NFA). En FAdo, estas representaciones se implementan como clases de Python. La documentación completa de todas las clases y métodos está disponible aquí.
 
-La instanciación y ejecución del <u>controlador principal</u> es responsabilidad del **index.php**, mismo que direcciona al tercer nivel y cargar en memoria de trabajo el contenido de **inicio.php** con la sentencia ```require_once("libs/ControladorPrincipal.php"); ``` e instancia la clase del ```$controladorPrincipal=new ControladorPrincipal();```. 
+Para trabajar con FAdo, después de la instalación, importe los siguientes módulos en un intérprete de Python:
 
-### Componentes.
-Los **componentes** que forman parte del patrón de diseño <u>controlador principal</u>(Alvarez et al, 2022):
+[2]:    >>> from FAdo.fa import *
+        >>> from FAdo.reex import *
+        >>> from FAdo.fio import *
+
+El módulo fa implementa las clases para autómatas finitos y el módulo reex, las clases para expresiones regulares. El módulo fio implementa métodos para la entrada/salida de autómatas y modelos relacionados.
+
+### Automatas finitos.
+
+La clase superior para autómatas finitos es la clase FA, que tiene dos subclases principales: OFA para autómatas finitos unidireccionales y la clase TFA para autómatas finitos bidireccionales. La clase OFA implementa la estructura básica de un autómata finito compartida por los DFA y los NFA. Esta clase define los siguientes atributos:
+
 <ol>
-<li>Controller: es el segmento de código donde se desglosa la petición del cliente en componentes: <u>controlador-método-parámetro</u> <b>(cmp)</b>, en dos vertientes:
-<ul>
- <li><b>cmp-útil</b> ← petición url específica.</li>
- <li><b>cmp-nulo</b> ← petición url genrérica.</li>
- </ul>
-<li>Dispatcher: son segmentos de código que reciben ejecutan con respecto a los componentes desglosados y en auscencia de estos el controlador por omisión</li>
-<li>Helper: ayuda al controlador a terminar su procesamiento.</li>
+<li>Sigma: es el alfabeto de entrada (conjunto)</li>
+<li>States: lista de estados, es una lista que cada estado se referencia por su indice cada vez que se utiliza(transiciones, dinal, etc)</li>
+<li>Initial: el estado inicial (o un conjunto de estados iniciales para NFA). Es un indice o una lista de indices</li>
+<li>Final: el estado inicial (o un conjunto de estados iniciales para NFA). Es un indice o una lista de indices</li>
 </ol>
 
+En general, no se deben crear instancias (objetos) de la clase OFA. Las clases DFA y NFA implementan DFA y NFA, respectivamente. La clase GFA implementa NFA generalizados que se utilizan en la conversión entre autómatas finitos y expresiones regulares. Las tres clases heredan de la clase OFA.
+
+Para cada clase hay métodos especiales para agregar/eliminar/modificar símbolos del alfabeto, estados y transiciones.
+
+###DFAs
+
+El siguiente ejemplo muestra como crear un DFA que acepte las palabras de {0,1}* que sean multiplos de 3.
+
 ```
- 1   dashBoardController
- 2      └─app					← archivos público
- 3         ├─controladores
- 4 	       │   └─DashBoard.php  ← controlador por omisión
- 5         ├─modelos
- 6         ├─vistas
- 7         ├─libs 							← bibliotecas     
- 8         │   └─ControladorPrincipal.php   ← frontController retorna un arreglo con los elementos url
- 9         ├─.htaccess         				← evita indexación del proyecto
- 10        └─inicio.php         ← carga en memoria frontController
+ 1   m3 = DFA()
+ 2   m3.setSigma(['0','1'])
+ 3   m3.addState('s1')     
+ 4 	 m3.addState('s2')     
+ 5   m3.addState('s3')          
+ 6   m3.setInitial(0)      
+ 7   m3.addFinal(0)          
+ 8   m3.addTransition(0, '0', 0)  
+ 9   m3.addTransition(0, '1', 1)   
+ 10  m3.addTransition(1, '0', 2) 
+ 11  m3.addTransition(1, '1', 0) 
+ 12  m3.addTransition(2, '0', 1) 
+ 13  m3.addTransition(2, '1', 2) 
+ 14      
 ```
-<h4>Dependencias de los recursos de la aplicación.</h4>
+Ahora es posible, por ejemplo, ver la estructura del autómata o probar si éste acepta una palabra.
+
+m3.evalWordP("011") -> Verdadero 
+m3.evalWordP("1011") -> Falso
+
+
+<h4>Ejemplo de Aplicacion de FAdo.</h4>
 
 <a href="#contents">Ir a Contenido.</a>
 
 <a id='eda'></a>
-### Exploratory Data Analysis
+### Ejemplo de Aplicacion de FAdo
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Vamos a realizar un ejercicio donde utilizaremos el ejemplo de FAdo pero esta vez realizaremos un codigo mas reducido para poder ahorrarnos codigo, en este caso utilizaremos un for en el cual uniremos el inicio, entrada y final, dentro del mismo for para poder realizar las transiciones.
+
+### Ejemplo de codigo
+
+```
+1 def procesar_ip():
+2    ipData = input("Teclea la Dirección IP: ")
+
+3    ipEsperada = "192168155125"
+4    es_valida = m3.evalWordP(ipData)  # Evalúa  la IP ingresada
+
+5    print(f"\nIP ingresada: {ipData}")
+6    print(f"IP esperada: {ipEsperada}")
+
+7    if ipData == ipEsperada:
+8        print("Comparación con IP esperada: VERDADERA")
+9    else:
+10        print("Comparación con IP esperada: FALSA")
+```
 
 <a href="#contents">Ir a Contenido.</a>
 
 <a id='conclusions'></a>
 ### Conclusiones.
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
+Se llevo a cabo la realizacion del codigo utilizando FADO, el cual nos muestra y evalua la direccion IP que le ingresemos por consola, esta direccion IP nos dira si es verdadera o falsa dependiendo de la evaluacion que le indiquemos en el codigo de las transciones.
 <a href="#contents">Ir a Contenido.</a>
 
 <a id='reference'></a>
 ### Referencias.
 
-GitHub Docs (s.f) Basic writing and formatting syntax.
-Recuperado: sábado 18 enero 2025, de 
-https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#images
-
-Portal Andino. GUÍA DE MARKDOWN.
-Recuperado: sábado 18 enero 2025, de
-https://datosgobar.github.io/portal-andino/markdown-guide/
-
-(Alvarez et al, 2022) Alvarez, O. D. G., Larrea, N. P. L., & Valencia, M. V. R. (2022).
-Análisis comparativo de Patrones de Diseño de Software. Polo del Conocimiento: Revista científico-profesional, 7(7), 2146-2165. Recuperado: viernes 24 enero 2025, de https://dialnet.unirioja.es/descarga/articulo/9042927.pdf 
-
-
-
-https://mcazorla.gitbooks.io/programacion-en-el-servidor/content/patrones_de_diseno_en_php_ii__patron_mvc/ejemplo_de_como_crear_un_sistema_mvc_paso_a_paso_1.html
+[1] “A small tutorial for FAdo — FAdo 2.1.2 documentation,” Fc.up.pt, 2023. 
+https://www.dcc.fc.up.pt/~rvr/FAdoDoc/notebooks/FAdoTutorial.html (accedio May 22, 2025).
 
 <a href="#contents">Ir a Contenido.</a>
